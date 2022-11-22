@@ -10,7 +10,7 @@
         POSTGRES_USER=nome_usuario
         POSTGRES_PASSWORD=senha
         POSTGRES_DB=nome_da_db
-        SECRET_KEY=chave_secreta
+        SECRET_KEY=qualquer_coisa
     docker-compose up --build
 
 ## No diretório frontend:
