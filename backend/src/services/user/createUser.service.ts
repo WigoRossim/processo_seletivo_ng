@@ -13,21 +13,23 @@ const createUserService = async ({
   const accountRepository = AppDataSource.getRepository(Accounts);
 
   const users: User[] = await userRepository.find();
-  const usernameAlreadyExists = users.find((user) => user.username === username);
+  const usernameAlreadyExists = users.find(
+    (user) => user.username === username
+  );
   if (usernameAlreadyExists) {
-    throw new AppError('Email Already exists');
+    throw new AppError('User Already exists');
   }
 
   const accounts: Accounts = accountRepository.create({
-    balance: 100
-  })
-  await accountRepository.save(accounts)
+    balance: 100,
+  });
+  await accountRepository.save(accounts);
 
   const hashedPassword: string = await hash(password, 10);
   const newUser: User = new User();
   newUser.username = username;
   newUser.password = hashedPassword;
-  newUser.accounts = accounts
+  newUser.accounts = accounts;
 
   const user: User = userRepository.create(newUser);
   await userRepository.save(user);

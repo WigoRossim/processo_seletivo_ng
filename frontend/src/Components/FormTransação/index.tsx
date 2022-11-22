@@ -1,17 +1,53 @@
 import Input from "../Input";
 import { FieldValues, useForm } from "react-hook-form";
-import { useContext } from "react";
-import { AuthContext } from "../../Contexts/AuthContexts";
+import { useContext, useEffect, useState } from "react";
+import { AuthContext, IUserData } from "../../Contexts/AuthContexts";
 import Button from "../Button";
 import { Container } from "./style";
+import api from "../../Services/api";
+import toast from "react-hot-toast";
 
 const FormTransacao = () => {
-  const { trasactionCreate } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
+  const [listUsers, setListUsers] = useState<IUserData[]>();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FieldValues>({ mode: "onChange" });
+
+  useEffect(() => {
+    api
+      .get("/users/all")
+      .then((response) => {
+        setListUsers(response.data);
+      })
+      .catch((err) => console.error(err));
+  }, []);
+
+  const trasactionCreate = (data: FieldValues) => {
+    const { username, value } = data;
+
+    const findUser = listUsers?.find((user) => user.username === username);
+
+    const newData = {
+      value,
+      debitedAccountId: user?.accounts.id,
+      creditedAccountId: findUser?.accounts.id,
+    };
+
+    const postAPI = () => {
+      const response = api.post("/transactions", newData).then((response) => {
+        return response;
+      });
+      return response;
+    };
+    toast.promise(postAPI(), {
+      loading: "Loading",
+      success: "Transferencia realizada",
+      error: "Algo deu errado, verifique o nome do destinatario ou seu cash",
+    });
+  };
 
   return (
     <Container onSubmit={handleSubmit(trasactionCreate)}>

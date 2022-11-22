@@ -79,42 +79,26 @@ const AuthProvider = ({ children }: IProvider) => {
     }
     loadUser();
 
-    const getTransactions = () => {
-      return api
-        .get("/transactions")
-        .then((response) => {
-          setTransactions(response.data);
-        })
-        .catch((err) => console.error(err));
-    };
-    getTransactions();
-
-    const getListUsers = () => {
-      return api
-        .get("/users/all")
-        .then((response) => {
-          setListUsers(response.data);
-        })
-        .catch((err) => console.error(err));
-    };
-    getListUsers();
+    api
+      .get("/users/all")
+      .then((response) => {
+        setListUsers(response.data);
+      })
+      .catch((err) => console.error(err));
   }, []);
 
   const userRegister = (data: FieldValues) => {
     delete data.confirmPassword;
     const postAPI = () => {
-      const response = api
-        .post("/users", data)
-        .then((response) => {
-          response.status === 201 && navigate("/", { replace: false });
-        })
-        .catch((err) => console.log(`esse é o erro ${err}`));
+      const response = api.post("/users", data).then((response) => {
+        response.status === 201 && navigate("/", { replace: false });
+      });
       return response;
     };
     toast.promise(postAPI(), {
       loading: "Loading",
       success: "Conta criada com sucesso!",
-      error: "E-mail já cadastrado!",
+      error: "Usuário já cadastrado!",
     });
   };
 
@@ -135,7 +119,7 @@ const AuthProvider = ({ children }: IProvider) => {
     toast.promise(postAPI(), {
       loading: "Loading",
       success: "Boas Vindas",
-      error: "Falha ao logar.Verifique se email e senha estão corretos",
+      error: "Falha ao logar.Verifique se usuário e senha estão corretos",
     });
   };
 
