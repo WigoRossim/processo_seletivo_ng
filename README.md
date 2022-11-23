@@ -1,9 +1,6 @@
 ### Para a implementação local basta clonar o repositório em sua máquina e executar os seguintes comandos:
 
-## No diretório backend:
-
-    yarn install
-    criar o arquivo .env e adicionar as variaveis de ambiente
+    criar o arquivo .env e adicionar as variaveis de ambiente da .env.example
         EX:
         POSTGRES_HOST=postgres
         PORT=3001
@@ -11,12 +8,15 @@
         POSTGRES_PASSWORD=senha
         POSTGRES_DB=nome_da_db
         SECRET_KEY=qualquer_coisa
+
     docker-compose up --build
 
-## No diretório frontend:
+    espere finalizar buildar o front e o back
+    e vizualizar as messagens 'servidor executando na porta 3000' para o front e
+    'servidor execuntando na porta 3001' para o back
+    após tudo estar sendo executado...
 
-    yarn install
-    yarn start (para rodar o front no navegador)
+    para acessar o frontend acesse http://localhost:3000/
 
 ### Rotas da aplicação:
 
