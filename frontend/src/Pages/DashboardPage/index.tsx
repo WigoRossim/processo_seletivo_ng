@@ -1,11 +1,11 @@
 import { useContext, useState } from "react";
 import Header from "../../Components/Header";
-import ListaTrasacoes from "../../Components/ListaTransaçoes";
+import ListaTrasacoes from "../../Components/ListaTransacoes";
 import { AuthContext } from "../../Contexts/AuthContexts";
 import { Container } from "./style";
 import { GrTransaction } from "react-icons/gr";
 import { BiListUl } from "react-icons/bi";
-import FormTransacao from "../../Components/FormTransação";
+import FormTransacao from "../../Components/FormTransacao";
 
 const DashboardPage = () => {
   const [balanceIsVisible, setBalanceIsVisible] = useState<boolean>(false);
