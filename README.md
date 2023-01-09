@@ -1,3 +1,5 @@
+Esse projeto se trata de uma aplicação simples e inicial de uma certeira digital
+
 ### Para a implementação local basta clonar o repositório em sua máquina e executar os seguintes comandos:
 
     criar o arquivo .env e adicionar as variaveis de ambiente da .env.example
@@ -9,6 +11,7 @@
         POSTGRES_DB=nome_da_db
         SECRET_KEY=qualquer_coisa
 
+    executar o comando:
     docker-compose up --build
 
     espere finalizar buildar o front e o back
